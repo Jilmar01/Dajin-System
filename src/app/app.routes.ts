@@ -24,12 +24,12 @@ export const routes: Routes = [
           .then(r => r.USER_ROUTES)
       },
       {
-        path: 'welcome',
+        path: '',
         component: Welcome
       },
       {
         path: '',
-        redirectTo: 'welcome',
+        redirectTo: '',
         pathMatch: 'full'
       }
     ]
