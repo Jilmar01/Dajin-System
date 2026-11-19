@@ -1,0 +1,263 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.topbar {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 64px;
+  padding: 0 clamp(16px, 4vw, 48px);
+  background: #fff;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.brand-icon {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border-radius: 50%;
+  background: #6347f9;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.brand-text {
+  color: #6347f9;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.nav-menu,
+.topbar-actions {
+  display: flex;
+  align-items: center;
+}
+
+.nav-menu {
+  align-self: stretch;
+  gap: clamp(12px, 2vw, 28px);
+}
+
+.nav-item {
+  position: relative;
+  display: flex;
+  align-self: stretch;
+  align-items: center;
+  color: #475569;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav-item:hover,
+.nav-item.active {
+  color: #6347f9;
+}
+
+.nav-item:focus-visible {
+  z-index: 1;
+  border-radius: 4px;
+  outline: 2px solid #6347f9;
+  outline-offset: 4px;
+}
+
+.nav-item.active::after {
+  position: absolute;
+  right: -6px;
+  bottom: 14px;
+  left: -6px;
+  height: 2px;
+  border-radius: 2px;
+  background: #6347f9;
+  content: '';
+}
+
+.topbar-actions {
+  gap: 20px;
+}
+
+.notif-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border: 0;
+  background: none;
+  color: #1e293b;
+  cursor: pointer;
+}
+
+.bell-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.badge {
+  position: absolute;
+  top: -4px;
+  right: -5px;
+  display: grid;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  place-items: center;
+  border-radius: 999px;
+  background: #6347f9;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.user-menu {
+  position: relative;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 5px 8px;
+  border: 0;
+  border-radius: 24px;
+  background: transparent;
+  color: #1e293b;
+  cursor: pointer;
+}
+
+.user-profile:hover,
+.user-profile[aria-expanded='true'] {
+  background: #f1f5f9;
+}
+
+.avatar {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.user-name {
+  max-width: 140px;
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chevron-icon {
+  width: 15px;
+  height: 15px;
+  color: #64748b;
+  transition: transform 0.2s ease;
+}
+
+.chevron-icon.open {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 10;
+  width: min(280px, calc(100vw - 32px));
+  padding: 18px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 12px 28px rgb(15 23 42 / 14%);
+}
+
+.dropdown-name,
+.dropdown-email {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.dropdown-name {
+  color: #1e293b;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.dropdown-email {
+  margin-top: 4px;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.logout-button {
+  width: 100%;
+  margin-top: 16px;
+  padding: 9px 12px;
+  border: 0;
+  border-radius: 7px;
+  background: #fff1f2;
+  color: #dc2626;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background: #ffe4e6;
+}
+
+.main-content {
+  width: 100%;
+  padding: 24px clamp(16px, 4vw, 48px);
+}
+
+@media (max-width: 900px) {
+  .topbar {
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  .nav-menu {
+    order: 3;
+    width: 100%;
+    min-height: 38px;
+    overflow-x: auto;
+  }
+
+  .nav-item.active::after {
+    bottom: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .topbar-actions {
+    gap: 10px;
+  }
+
+  .user-name {
+    max-width: 90px;
+  }
+}

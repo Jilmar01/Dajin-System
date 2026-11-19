@@ -1,0 +1,57 @@
+<div class="login-container">
+  <section class="login-card" aria-labelledby="login-title">
+    <header class="login-header">
+      <h2 id="login-title">Sign in</h2>
+      <p>Enter your credentials to continue</p>
+    </header>
+
+    <form class="login-form" [formGroup]="frmLogin" (ngSubmit)="login()" novalidate>
+      <div class="form-group" [class.error]="frmLogin.controls.username.touched && frmLogin.controls.username.invalid">
+        <div class="input-wrapper">
+          <input
+            id="username"
+            type="text"
+            formControlName="username"
+            autocomplete="username"
+            autocapitalize="none"
+            spellcheck="false"
+            placeholder=" "
+            aria-describedby="usernameError"
+            required
+          />
+          <label for="username">Username</label>
+        </div>
+        @if (frmLogin.controls.username.touched && frmLogin.controls.username.invalid) {
+          <span class="error-message show" id="usernameError">Username is required</span>
+        }
+      </div>
+
+      <div class="form-group" [class.error]="frmLogin.controls.password.touched && frmLogin.controls.password.invalid">
+        <div class="input-wrapper">
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
+            autocomplete="current-password"
+            placeholder=" "
+            aria-describedby="passwordError"
+            required
+          />
+          <label for="password">Password</label>
+        </div>
+        @if (frmLogin.controls.password.touched && frmLogin.controls.password.invalid) {
+          <span class="error-message show" id="passwordError">Password is required</span>
+        }
+      </div>
+
+      @if (error()) {
+        <p class="error-message show" role="alert">{{ error() }}</p>
+      }
+
+      <button class="login-btn" [class.loading]="loading()" type="submit" [disabled]="loading()">
+        <span class="btn-text">{{ loading() ? 'Signing in...' : 'Sign in' }}</span>
+        <span class="btn-loader" aria-hidden="true"></span>
+      </button>
+    </form>
+  </section>
+</div>

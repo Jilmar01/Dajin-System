@@ -1,59 +1,21 @@
-# AssetManagementWeb
+# Dajin System — Sistema de Gestión de Activos Empresariales
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.3.0.
+Aplicación web empresarial para la gestión integral de inventario, ciclo de vida, asignación a custodios y control presupuestario de activos fijos y tecnológicos. Desarrollada con **Angular** e integrada mediante API REST y autenticación segura (JWT) con su [servicio backend en Spring Boot](https://github.com/Jilmar01/AssetManagement-Web).
 
-## Development server
+## Descripción y Propósito
 
-To start a local development server, run:
+**Dajin System** centraliza la administración y auditoría de recursos empresariales (equipos de cómputo, servidores, mobiliario, vehículos y licencias) para organizaciones medianas y grandes, ofreciendo una interfaz ágil y orientada a la toma de decisiones:
 
-```bash
-ng serve
-```
+- **Inventario Unificado:** Búsqueda rápida, filtrado avanzado y registro de activos mediante código patrimonial único y número de serie del fabricante.
+- **Gestión del Ciclo de Vida:** Control interactivo de estados (`DISPONIBLE`, `ASIGNADO`, `EN_MANTENIMIENTO`, `DE_BAJA`) con validaciones en tiempo real para evitar inconsistencias operativas.
+- **Control Presupuestario por Departamento:** Indicadores visuales y alertas que previenen adquisiciones que excedan el cupo asignado por área u oficina.
+- **Soporte Multidivisa en Tiempo Real:** Visualización y cálculo automático en moneda base (USD) para activos cotizados en EUR, GBP u otras divisas internacionales.
+- **Flujo de Asignaciones y Custodia:** Módulo dedicado para gestionar entregas y devoluciones a empleados, con generación y descarga de constancias de entrega.
+- **Seguridad y Control de Acceso:** Gestión de sesiones, interceptores HTTP para tokens JWT y vistas protegidas según el rol del usuario.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Stack Tecnológico
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- **Framework:** Angular
+- **Lenguaje:** TypeScript
+- **Arquitectura e Integración:** Consumo de API REST (`HttpClient`), Interceptores HTTP y autenticación JWT
+- **Backend asociado:** [AssetManagement-Web (Spring Boot / Java)](https://github.com/Dario7-ux/AssetManagement)

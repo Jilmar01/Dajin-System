@@ -1,0 +1,111 @@
+<section class="users-page" aria-labelledby="users-title">
+  <header class="page-header">
+    <div>
+      <h1 id="users-title">Users</h1>
+      <p class="page-description">Manage accounts and access permissions.</p>
+    </div>
+
+    <div class="toolbar" aria-label="User actions">
+      <button class="button button-primary" type="button">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+        Add User
+      </button>
+    </div>
+  </header>
+
+  @if (error()) {
+    <div class="state-message state-error" role="alert">{{ error() }}</div>
+  }
+
+  <section class="table-card" aria-label="User list">
+    @if (users$ | async; as users) {
+      @if (users.length > 0) {
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">User</th>
+                <th scope="col">Role</th>
+                <th scope="col">Status</th>
+                <th scope="col">Created</th>
+                <th scope="col" class="actions-heading">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (user of users.slice((currentPage() - 1) * pageSize, currentPage() * pageSize); track user.id) {
+                <tr>
+                  <td>
+                    <div class="user-cell">
+                      <span class="avatar" aria-hidden="true">{{ user.username.charAt(0).toUpperCase() }}</span>
+                      <span class="username">{{ user.username }}</span>
+                    </div>
+                  </td>
+                  <td><span class="role-badge">{{ user.rol }}</span></td>
+                  <td>
+                    <span class="status" [class.status-active]="user.activo" [class.status-inactive]="!user.activo">
+                      <span class="status-dot" aria-hidden="true"></span>
+                      {{ user.activo ? 'Active' : 'Inactive' }}
+                    </span>
+                  </td>
+                  <td class="date-cell">{{ user.creado ? (user.creado | date:'MM/dd/yyyy, h:mm a') : '—' }}</td>
+                  <td class="action-cell">
+                    <div class="row-actions">
+                      <button
+                        class="icon-button icon-button-edit"
+                        type="button"
+                        [attr.aria-label]="'Edit user ' + user.username"
+                        [title]="'Edit user ' + user.username"
+                      >
+                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <path d="m15 5 4 4M4 20l4.2-.8L19 8.4a2.12 2.12 0 0 0-3-3L5.2 16.2 4 20Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </button>
+                      <button
+                        class="icon-button icon-button-delete"
+                        type="button"
+                        [attr.aria-label]="'Delete user ' + user.username"
+                        [title]="'Delete user ' + user.username"
+                      >
+                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <path d="M4 7h16M10 11v6m4-6v6M5.5 7l1 13h11l1-13M9 7V4h6v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+        <nav class="pagination" aria-label="User pagination">
+          <span>
+            Showing {{ firstVisibleUser(users.length) }}–{{ lastVisibleUser(users.length) }} of {{ users.length }} users
+          </span>
+          <div class="pagination-controls">
+            <button
+              class="pagination-button"
+              type="button"
+              [disabled]="currentPage() === 1"
+              (click)="changePage(currentPage() - 1, users.length)"
+            >
+              Previous
+            </button>
+            <span class="pagination-page">Page {{ currentPage() }} of {{ totalPages(users.length) }}</span>
+            <button
+              class="pagination-button"
+              type="button"
+              [disabled]="currentPage() >= totalPages(users.length)"
+              (click)="changePage(currentPage() + 1, users.length)"
+            >
+              Next
+            </button>
+          </div>
+        </nav>
+      } @else {
+        <div class="state-message">No users found.</div>
+      }
+    }
+  </section>
+</section>
