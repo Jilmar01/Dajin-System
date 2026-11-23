@@ -33,7 +33,7 @@
 
 .category-modal-panel {
   position: relative;
-  width: min(100%, 560px);
+  width: min(100%, 450px);
   max-height: calc(100dvh - 48px);
   overflow-y: auto;
   padding: clamp(18px, 3vw, 28px);
