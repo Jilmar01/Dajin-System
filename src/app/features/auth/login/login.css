@@ -1,12 +1,12 @@
 :host {
   --brand-violet: #6347f9;
-  --brand-violet-dark: #5135e8;
+  --brand-violet-dark: #5238e5;
 
   display: block;
   min-height: 100vh;
   background:
     radial-gradient(ellipse at 50% 0%, #eeeaff 0, transparent 48%),
-    #f8fafc;
+    #F7F8FC;
 }
 
 .login-container {
@@ -34,7 +34,7 @@
 
 .login-header h2 {
   margin: 0 0 8px;
-  color: #17162c;
+  color: #172B4D;
   font-size: 1.75rem;
   font-weight: 700;
   letter-spacing: -.035em;
@@ -69,7 +69,7 @@
   border-radius: 9px;
   outline: none;
   background: #fff;
-  color: #17162c;
+  color: #172B4D;
   font-size: 15px;
   transition: border-color .18s ease, box-shadow .18s ease;
 }
