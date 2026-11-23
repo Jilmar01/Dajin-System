@@ -4,10 +4,9 @@ import { catchError, finalize, Observable, of } from 'rxjs';
 import { AssetService } from '../asset.service';
 import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { AssetStatus } from '../asset.status';
-import { AssetForm } from '../asset-form/asset-form';
 
 @Component({
-  imports: [AsyncPipe, CurrencyPipe, AssetForm],
+  imports: [AsyncPipe, CurrencyPipe],
   selector: 'app-asset-list',
   styleUrl: './asset-list.css',
   templateUrl: './asset-list.html',
@@ -23,23 +22,9 @@ export class AssetList implements OnInit {
   readonly currentPage = signal(1);
   readonly openStatusMenuId = signal<number | null>(null);
   readonly updatingStatusAssetId = signal<number | null>(null);
-  readonly formModalOpen = signal(false);
   readonly statuses = Object.values(AssetStatus);
 
   ngOnInit(): void {
-    this.getAssets();
-  }
-
-  openCreateModal(): void {
-    this.formModalOpen.set(true);
-  }
-
-  closeFormModal(): void {
-    this.formModalOpen.set(false);
-  }
-
-  onAssetSubmitted(): void {
-    this.closeFormModal();
     this.getAssets();
   }
 
@@ -108,7 +93,7 @@ export class AssetList implements OnInit {
         next: updatedAsset => {
           asset.estado = updatedAsset.estado;
         },
-        error: err => {
+        error: (err: Error) => {
           this.error.set(err.message || 'Could not update the asset status.');
         },
       });
