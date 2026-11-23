@@ -1,0 +1,91 @@
+:host { display: block; }
+
+.categories-table { min-width: 960px; }
+.categories-table .category-name-column { width: 18%; }
+.categories-table .category-code-column { width: 10%; }
+.categories-table .category-description-column { width: 45%; }
+.categories-table .category-life-column { width: 12%; }
+.categories-table .category-rate-column { width: 15%; }
+/*.categories-table .actions-column { width: 12%; }*/
+
+.category-cell { min-width: 0; }
+.category-name {
+  display: block;
+  overflow: hidden;
+  color: var(--color-text);
+  font-weight: 650;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.category-description { white-space: nowrap; }
+.rate-cell { color: var(--color-text-secondary); font-weight: 600; white-space: nowrap; }
+
+.category-modal-backdrop {
+  position: fixed;
+  z-index: 20;
+  inset: 0;
+  display: grid;
+  overflow-y: auto;
+  padding: 24px;
+  place-items: center;
+  background: rgb(23 43 77 / 45%);
+}
+
+.category-modal-panel {
+  position: relative;
+  width: min(100%, 560px);
+  max-height: calc(100dvh - 48px);
+  overflow-y: auto;
+  padding: clamp(18px, 3vw, 28px);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-surface);
+  box-shadow: 0 24px 64px rgb(23 43 77 / 22%);
+}
+
+.category-modal-close {
+  position: absolute;
+  z-index: 1;
+  top: 18px;
+  right: 18px;
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font: inherit;
+  font-size: 23px;
+  line-height: 1;
+  cursor: pointer;
+  place-content: center;
+}
+
+.category-modal-close:hover {
+  background: var(--color-primary-light);
+  color: var(--color-text);
+}
+
+.category-modal-close:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+@media (max-width: 600px) {
+  .category-modal-backdrop {
+    padding: 12px;
+    place-items: start center;
+  }
+
+  .category-modal-panel {
+    max-height: calc(100dvh - 24px);
+    padding: 18px;
+  }
+
+  .category-modal-close {
+    top: 12px;
+    right: 12px;
+  }
+}

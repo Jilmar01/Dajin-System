@@ -1,0 +1,60 @@
+<section class="category-form-page" [attr.aria-labelledby]="'category-form-title'">
+  <header class="form-header">
+    <div>
+      <h1 id="category-form-title">{{ category ? 'Edit Category' : 'Create Category' }}</h1>
+      <p>{{ category ? 'Update the category details below.' : 'Enter the details for the new category.' }}</p>
+    </div>
+  </header>
+
+  @if (formError() || errorMessage) {
+    <div class="form-error" role="alert">{{ formError() || errorMessage }}</div>
+  }
+
+  <form class="category-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <div class="form-grid">
+      <label class="form-field">
+        <span>Code <span class="required-mark" aria-hidden="true">*</span></span>
+        <input type="text" formControlName="codigo" autocomplete="off" required />
+        @if (form.controls.codigo.touched && form.controls.codigo.hasError('required')) {
+          <span class="field-error">Code is required.</span>
+        }
+      </label>
+
+      <label class="form-field">
+        <span>Name <span class="required-mark" aria-hidden="true">*</span></span>
+        <input type="text" formControlName="nombre" autocomplete="off" required />
+        @if (form.controls.nombre.touched && form.controls.nombre.hasError('required')) {
+          <span class="field-error">Name is required.</span>
+        }
+      </label>
+
+      <label class="form-field form-field-wide">
+        <span>Description</span>
+        <textarea formControlName="descripcion" rows="4"></textarea>
+      </label>
+
+      <label class="form-field">
+        <span>Useful life (years) <span class="required-mark" aria-hidden="true">*</span></span>
+        <input type="number" formControlName="vidaUtilAnios" step="1" required />
+        @if (form.controls.vidaUtilAnios.touched && form.controls.vidaUtilAnios.hasError('required')) {
+          <span class="field-error">Useful life is required.</span>
+        }
+      </label>
+
+      <label class="form-field">
+        <span>Annual depreciation rate (%) <span class="required-mark" aria-hidden="true">*</span></span>
+        <input type="number" formControlName="tasaDepreciacionAnual" step="any" required />
+        @if (form.controls.tasaDepreciacionAnual.touched && form.controls.tasaDepreciacionAnual.hasError('required')) {
+          <span class="field-error">Depreciation rate is required.</span>
+        }
+      </label>
+    </div>
+
+    <footer class="form-actions">
+      <button class="button button-secondary" type="button" [disabled]="isSubmitting()" (click)="cancelled.emit()">Cancel</button>
+      <button class="button button-primary" type="submit" [disabled]="isSubmitting()">
+        {{ isSubmitting() ? 'Saving...' : (category ? 'Save Changes' : 'Create Category') }}
+      </button>
+    </footer>
+  </form>
+</section>

@@ -17,6 +17,10 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       {
+        path: '',
+        component: Welcome
+      },
+      {
         path: 'users',
         canActivate: [roleGuard],
         data: { roles: [Rol.ADMIN] },
@@ -24,8 +28,11 @@ export const routes: Routes = [
           .then(r => r.USER_ROUTES)
       },
       {
-        path: '',
-        component: Welcome
+        path: 'categories',
+        canActivate: [roleGuard],
+        data: { roles: [Rol.ADMIN, Rol.USER] },
+        loadChildren: () => import('./features/category/category.routes')
+          .then(r => r.CATEGORY_ROUTES)
       },
       {
         path: '',

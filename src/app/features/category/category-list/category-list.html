@@ -1,0 +1,137 @@
+<section class="management-list" aria-labelledby="categories-title">
+  <header class="page-header">
+    <div>
+      <h1 id="categories-title">Categories</h1>
+      <p class="page-description">Manage asset categories and depreciation settings.</p>
+    </div>
+
+    <div class="toolbar" aria-label="Category actions">
+      <button class="button button-primary" type="button" (click)="openCreateModal()">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+        Add Category
+      </button>
+    </div>
+  </header>
+
+  @if (error()) {
+    <div class="state-message state-error" role="alert">{{ error() }}</div>
+  }
+
+  <section class="table-card" aria-label="Category list">
+    @if (categories$ | async; as categories) {
+      @if (categories.length > 0) {
+        <div class="table-scroll">
+          <table class="categories-table">
+            <colgroup>
+              <col class="category-name-column" />
+              <col class="category-code-column" />
+              <col class="category-description-column" />
+              <col class="category-life-column" />
+              <col class="category-rate-column" />
+              <col class="actions-column" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col">Category</th>
+                <th scope="col">Code</th>
+                <th scope="col">Description</th>
+                <th scope="col">Useful life</th>
+                <th scope="col">Depreciation rate</th>
+                <!--<th scope="col" class="actions-heading">Actions</th>-->
+              </tr>
+            </thead>
+            <tbody>
+              @for (category of categories.slice((currentPage() - 1) * pageSize, currentPage() * pageSize); track category.id) {
+                <tr>
+                  <td>
+                    <div class="category-cell">
+                      <span class="category-name" [title]="category.nombre">{{ category.nombre }}</span>
+                    </div>
+                  </td>
+                  <td><span class="role-badge">{{ category.codigo }}</span></td>
+                  <td class="category-description" [title]="category.descripcion">{{ category.descripcion }}</td>
+                  <td>{{ category.vidaUtilAnios }} years</td>
+                  <td class="rate-cell">{{ category.tasaDepreciacionAnual }}%</td>
+                  <!--<td class="action-cell">
+                    <div class="row-actions">
+                      <button
+                        class="icon-button icon-button-edit"
+                        type="button"
+                        (click)="openEditModal(category)"
+                        [attr.aria-label]="'Edit category ' + category.nombre"
+                        [title]="'Edit category ' + category.nombre"
+                      >
+                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <path d="m15 5 4 4M4 20l4.2-.8L19 8.4a2.12 2.12 0 0 0-3-3L5.2 16.2 4 20Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </button>
+                      <button
+                        class="icon-button icon-button-delete"
+                        type="button"
+                        [attr.aria-label]="'Delete category ' + category.nombre"
+                        [title]="'Delete category ' + category.nombre"
+                      >
+                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <path d="M4 7h16M10 11v6m4-6v6M5.5 7l1 13h11l1-13M9 7V4h6v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </button>
+                    </div>
+                  </td>-->
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+        <nav class="pagination" aria-label="Category pagination">
+          <span>
+            Showing {{ firstVisibleUser(categories.length) }}–{{ lastVisibleUser(categories.length) }} of {{ categories.length }} categories
+          </span>
+          <div class="pagination-controls">
+            <button
+              class="pagination-button"
+              type="button"
+              [disabled]="currentPage() === 1"
+              (click)="changePage(currentPage() - 1, categories.length)"
+            >
+              Previous
+            </button>
+            <span class="pagination-page">Page {{ currentPage() }} of {{ totalPages(categories.length) }}</span>
+            <button
+              class="pagination-button"
+              type="button"
+              [disabled]="currentPage() >= totalPages(categories.length)"
+              (click)="changePage(currentPage() + 1, categories.length)"
+            >
+              Next
+            </button>
+          </div>
+        </nav>
+      } @else {
+        <div class="state-message">No categories found.</div>
+      }
+    }
+  </section>
+</section>
+
+@if (formModalOpen()) {
+  <div class="category-modal-backdrop" (click)="closeFormModal()" (keydown.escape)="closeFormModal()">
+    <div
+      class="category-modal-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="category-form-title"
+      (click)="$event.stopPropagation()"
+    >
+      <button class="category-modal-close" type="button" aria-label="Close category form" (click)="closeFormModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <app-category-form
+        [category]="selectedCategory()"
+        (cancelled)="closeFormModal()"
+        (submitted)="onCategorySubmitted()"
+      />
+    </div>
+  </div>
+}
