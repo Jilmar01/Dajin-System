@@ -4,9 +4,10 @@ import { catchError, finalize, Observable, of } from 'rxjs';
 import { AssetService } from '../asset.service';
 import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { AssetStatus } from '../asset.status';
+import { AssetForm } from '../asset-form/asset-form';
 
 @Component({
-  imports: [AsyncPipe, CurrencyPipe],
+  imports: [AsyncPipe, CurrencyPipe, AssetForm],
   selector: 'app-asset-list',
   styleUrl: './asset-list.css',
   templateUrl: './asset-list.html',
@@ -23,8 +24,22 @@ export class AssetList implements OnInit {
   readonly openStatusMenuId = signal<number | null>(null);
   readonly updatingStatusAssetId = signal<number | null>(null);
   readonly statuses = Object.values(AssetStatus);
+  readonly formModalOpen = signal(false);
 
   ngOnInit(): void {
+    this.getAssets();
+  }
+
+  openCreateModal(): void {
+    this.formModalOpen.set(true);
+  }
+
+  closeFormModal(): void {
+    this.formModalOpen.set(false);
+  }
+
+  onAssetSubmitted(): void {
+    this.closeFormModal();
     this.getAssets();
   }
 
