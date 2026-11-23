@@ -35,6 +35,13 @@ export const routes: Routes = [
           .then(r => r.CATEGORY_ROUTES)
       },
       {
+        path: 'departments',
+        canActivate: [roleGuard],
+        data: { roles: [Rol.ADMIN, Rol.USER] },
+        loadChildren: () => import('./features/department/department.routes')
+          .then(r => r.DEPARTMENT_ROUTE)
+      },
+      {
         path: '',
         redirectTo: '',
         pathMatch: 'full'
