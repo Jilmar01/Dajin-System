@@ -13,7 +13,7 @@
   min-height: 64px;
   padding: 0 clamp(16px, 4vw, 48px);
   background: #fff;
-  border-bottom: 1px solid #f1f5f9;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .brand {
@@ -31,14 +31,14 @@
   height: 36px;
   place-items: center;
   border-radius: 50%;
-  background: #6347f9;
+  background: var(--color-primary);
   color: #fff;
   font-size: 10px;
   font-weight: 700;
 }
 
 .brand-text {
-  color: #6347f9;
+  color: var(--color-primary);
   font-size: 18px;
   font-weight: 700;
   letter-spacing: -0.3px;
@@ -60,7 +60,7 @@
   display: flex;
   align-self: stretch;
   align-items: center;
-  color: #475569;
+  color: var(--color-text-secondary);
   font-size: 14px;
   font-weight: 500;
   text-decoration: none;
@@ -69,13 +69,13 @@
 
 .nav-item:hover,
 .nav-item.active {
-  color: #6347f9;
+  color: var(--color-primary);
 }
 
 .nav-item:focus-visible {
   z-index: 1;
   border-radius: 4px;
-  outline: 2px solid #6347f9;
+  outline: 2px solid var(--color-primary);
   outline-offset: 4px;
 }
 
@@ -86,7 +86,7 @@
   left: -6px;
   height: 2px;
   border-radius: 2px;
-  background: #6347f9;
+  background: var(--color-primary);
   content: '';
 }
 
@@ -101,7 +101,7 @@
   padding: 4px;
   border: 0;
   background: none;
-  color: #1e293b;
+  color: var(--color-text);
   cursor: pointer;
 }
 
@@ -120,7 +120,7 @@
   padding: 0 4px;
   place-items: center;
   border-radius: 999px;
-  background: #6347f9;
+  background: var(--color-primary);
   color: #fff;
   font-size: 11px;
   font-weight: 600;
@@ -138,13 +138,13 @@
   border: 0;
   border-radius: 24px;
   background: transparent;
-  color: #1e293b;
+  color: var(--color-text);
   cursor: pointer;
 }
 
 .user-profile:hover,
 .user-profile[aria-expanded='true'] {
-  background: #f1f5f9;
+  background: var(--color-background);
 }
 
 .avatar {
@@ -186,7 +186,7 @@
   z-index: 10;
   width: min(280px, calc(100vw - 32px));
   padding: 18px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-border);
   border-radius: 12px;
   background: #fff;
   box-shadow: 0 12px 28px rgb(15 23 42 / 14%);
@@ -199,7 +199,7 @@
 }
 
 .dropdown-name {
-  color: #1e293b;
+  color: var(--color-text);
   font-size: 16px;
   font-weight: 600;
 }
@@ -244,7 +244,14 @@
     order: 3;
     width: 100%;
     min-height: 38px;
-    overflow-x: auto;
+    justify-content: space-around;
+    gap: 8px;
+    overflow: visible;
+  }
+
+  .nav-item {
+    justify-content: center;
+    flex: 1 1 0;
   }
 
   .nav-item.active::after {

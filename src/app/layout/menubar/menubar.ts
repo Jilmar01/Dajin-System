@@ -28,6 +28,9 @@ export class Menubar {
   readonly navigationItems: NavigationItem[] = [
     { label: 'Start', route: '/', roles: [Rol.ADMIN, Rol.USER], exact: true },
     { label: 'Users', route: '/users', roles: [Rol.ADMIN] },
+    { label: 'Categories', route: '/categories', roles: [Rol.ADMIN, Rol.USER] },
+    { label: 'Departments', route: '/departments', roles: [Rol.ADMIN, Rol.USER] },
+    { label: 'Assets', route: '/assets', roles: [Rol.ADMIN, Rol.USER] }
   ];
   readonly visibleNavigation = computed(() =>
     this.navigationItems.filter((item) => this.authService.isRol(item.roles)),
