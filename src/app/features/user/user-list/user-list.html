@@ -6,7 +6,7 @@
     </div>
 
     <div class="toolbar" aria-label="User actions">
-      <button class="button button-primary" type="button">
+      <button class="button button-primary" type="button" (click)="openCreateModal()">
         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
         </svg>
@@ -113,3 +113,20 @@
     }
   </section>
 </section>
+
+@if (formModalOpen()) {
+  <div class="user-modal-backdrop">
+    <div
+      class="user-modal-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="user-form-title"
+      (click)="$event.stopPropagation()"
+    >
+      <button class="user-modal-close" type="button" aria-label="Close user form" (click)="closeFormModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <app-user-form (cancelled)="closeFormModal()" (submitted)="onUserSubmitted()" />
+    </div>
+  </div>
+}

@@ -3,11 +3,10 @@ import { UserService } from '../user.service';
 import { catchError, finalize, Observable, of } from 'rxjs';
 import { UserResponse } from '../user.model';
 import { AsyncPipe } from '@angular/common';
+import { UserForm } from '../user-form/user-form';
 
 @Component({
-  imports: [
-    AsyncPipe,
-  ],
+  imports: [AsyncPipe, UserForm],
   selector: 'app-user-list',
   styleUrl: './user-list.css',
   templateUrl: './user-list.html',
@@ -20,6 +19,7 @@ export class UserList implements OnInit {
   error = signal<string | null>(null);
   readonly pageSize = 5;
   readonly currentPage = signal(1);
+  readonly formModalOpen = signal(false);
 
   ngOnInit(): void {
     this.getUsers();
@@ -35,6 +35,19 @@ export class UserList implements OnInit {
       }),
       finalize(() => this.loading.set(false))
     );
+  }
+
+  openCreateModal(): void {
+    this.formModalOpen.set(true);
+  }
+
+  closeFormModal(): void {
+    this.formModalOpen.set(false);
+  }
+
+  onUserSubmitted(): void {
+    this.closeFormModal();
+    this.getUsers();
   }
 
   totalPages(totalUsers: number): number {

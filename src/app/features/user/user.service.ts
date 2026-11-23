@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { map, Observable } from "rxjs";
-import { UserResponse } from "./user.model";
+import { UserRequest, UserResponse } from "./user.model";
 import { ActionResponse } from "../../models/action-response";
 import { environment } from "../../../environments/environment";
 
@@ -12,6 +12,12 @@ export class UserService {
     getUsers(): Observable<UserResponse[]> {
         return this.httpCliente
             .get<ActionResponse<UserResponse[]>>(`${environment.apiURL}/usuarios`)
+            .pipe(map((res) => res.results));
+    }
+
+    addUser(user: UserRequest): Observable<UserResponse> {
+        return this.httpCliente
+            .post<ActionResponse<UserResponse>>(`${environment.apiURL}/usuarios`, user)
             .pipe(map((res) => res.results));
     }
 

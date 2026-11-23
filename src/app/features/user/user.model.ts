@@ -10,5 +10,6 @@ export interface UserResponse {
 
 export interface UserRequest {
     username: string,
+    password: string,
     rol: Rol
 }
