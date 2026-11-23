@@ -2,12 +2,11 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { UserService } from '../user.service';
 import { catchError, finalize, Observable, of } from 'rxjs';
 import { UserResponse } from '../user.model';
-import { AsyncPipe, DatePipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   imports: [
     AsyncPipe,
-    DatePipe,
   ],
   selector: 'app-user-list',
   styleUrl: './user-list.css',
