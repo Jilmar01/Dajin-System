@@ -1,0 +1,136 @@
+:host {
+  display: block;
+}
+
+.departments-table {
+  min-width: 1120px;
+}
+
+.departments-table .department-name-column {
+  width: 25%;
+}
+
+.departments-table .department-code-column {
+  width: 12%;
+}
+
+.departments-table .department-location-column {
+  width: 18%;
+}
+
+.departments-table .department-value-column {
+  width: 15%;
+}
+
+.departments-table .department-budget-column {
+  width: 15%;
+}
+
+.departments-table .department-available-column {
+  width: 15%;
+}
+
+/*.departments-table .actions-column { width: 10%; }*/
+
+.department-cell {
+  min-width: 0;
+}
+
+.department-name {
+  display: block;
+  overflow: hidden;
+  color: var(--color-text);
+  font-weight: 650;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.location-cell {
+  color: var(--color-text);
+  font-weight: 550;
+}
+
+.location-cell span {
+  display: block;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.money-cell {
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+.available-cell {
+  color: #16804a;
+}
+
+.department-modal-backdrop {
+  position: fixed;
+  z-index: 20;
+  inset: 0;
+  display: grid;
+  overflow-y: auto;
+  padding: 24px;
+  place-items: center;
+  background: rgb(23 43 77 / 45%);
+}
+
+.department-modal-panel {
+  position: relative;
+  width: min(100%, 450px);
+  max-height: calc(100dvh - 48px);
+  overflow-y: auto;
+  padding: clamp(18px, 3vw, 28px);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-surface);
+  box-shadow: 0 24px 64px rgb(23 43 77 / 22%);
+}
+
+.department-modal-close {
+  position: absolute;
+  z-index: 1;
+  top: 18px;
+  right: 18px;
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font: inherit;
+  font-size: 23px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.department-modal-close:hover {
+  background: var(--color-primary-light);
+  color: var(--color-text);
+}
+
+.department-modal-close:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+@media (max-width: 600px) {
+  .department-modal-backdrop {
+    padding: 12px;
+    place-items: start center;
+  }
+
+  .department-modal-panel {
+    max-height: calc(100dvh - 24px);
+    padding: 18px;
+  }
+
+  .department-modal-close {
+    top: 12px;
+    right: 12px;
+  }
+}

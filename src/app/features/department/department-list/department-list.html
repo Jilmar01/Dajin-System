@@ -1,0 +1,113 @@
+<section class="management-list" aria-labelledby="departments-title">
+  <header class="page-header">
+    <div>
+      <h1 id="departments-title">Departments</h1>
+      <p class="page-description">Manage departments, locations, and asset budgets.</p>
+    </div>
+
+    <div class="toolbar" aria-label="Department actions">
+      <button class="button button-primary" type="button" (click)="openCreateModal()">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+        Add Department
+      </button>
+    </div>
+  </header>
+
+  @if (error()) {
+    <div class="state-message state-error" role="alert">{{ error() }}</div>
+  }
+
+  <section class="table-card" aria-label="Department list">
+    @if (departments$ | async; as departments) {
+      @if (departments.length > 0) {
+        <div class="table-scroll">
+          <table class="departments-table">
+            <colgroup>
+              <col class="department-name-column" />
+              <col class="department-code-column" />
+              <col class="department-location-column" />
+              <col class="department-value-column" />
+              <col class="department-budget-column" />
+              <col class="department-available-column" />
+              <!--<col class="actions-column" />-->
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col">Department</th>
+                <th scope="col">Code</th>
+                <th scope="col">Location</th>
+                <th scope="col">Asset value</th>
+                <th scope="col">Budget</th>
+                <th scope="col">Available</th>
+                <!--<th scope="col" class="actions-heading">Actions</th>-->
+              </tr>
+            </thead>
+            <tbody>
+              @for (department of departments.slice((currentPage() - 1) * pageSize, currentPage() * pageSize); track department.id) {
+                <tr>
+                  <td>
+                    <div class="department-cell">
+                      <span class="department-name" [title]="department.nombre">{{ department.nombre }}</span>
+                    </div>
+                  </td>
+                  <td><span class="role-badge">{{ department.codigo }}</span></td>
+                  <td class="location-cell">{{ department.edificio }}<span>Floor {{ department.piso }}</span></td>
+                  <td class="money-cell">{{ department.valorActualActivos | currency:'USD':'symbol':'1.2-2' }}</td>
+                  <td class="money-cell">{{ department.presupuestoMaximo | currency:'USD':'symbol':'1.2-2' }}</td>
+                  <td class="money-cell available-cell">{{ department.presupuestoDisponible | currency:'USD':'symbol':'1.2-2' }}</td>
+                  <!--<td class="action-cell">
+                    <div class="row-actions">
+                      <button class="icon-button icon-button-edit" type="button" [attr.aria-label]="'Edit department ' + department.nombre" [title]="'Edit department ' + department.nombre">
+                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <path d="m15 5 4 4M4 20l4.2-.8L19 8.4a2.12 2.12 0 0 0-3-3L5.2 16.2 4 20Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </button>
+                      <button class="icon-button icon-button-delete" type="button" [attr.aria-label]="'Delete department ' + department.nombre" [title]="'Delete department ' + department.nombre">
+                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <path d="M4 7h16M10 11v6m4-6v6M5.5 7l1 13h11l1-13M9 7V4h6v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </button>
+                    </div>
+                  </td>-->
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+        <nav class="pagination" aria-label="Department pagination">
+          <span>Showing {{ firstVisibleRecord(departments.length) }}–{{ lastVisibleRecord(departments.length) }} of {{ departments.length }} departments</span>
+          <div class="pagination-controls">
+            <button class="pagination-button" type="button" [disabled]="currentPage() === 1" (click)="changePage(currentPage() - 1, departments.length)">Previous</button>
+            <span class="pagination-page">Page {{ currentPage() }} of {{ totalPages(departments.length) }}</span>
+            <button class="pagination-button" type="button" [disabled]="currentPage() >= totalPages(departments.length)" (click)="changePage(currentPage() + 1, departments.length)">Next</button>
+          </div>
+        </nav>
+      } @else {
+        <div class="state-message">No departments found.</div>
+      }
+    }
+  </section>
+</section>
+
+@if (formModalOpen()) {
+  <div class="department-modal-backdrop">
+    <div
+      class="department-modal-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="department-form-title"
+      (click)="$event.stopPropagation()"
+    >
+      <button class="department-modal-close" type="button" aria-label="Close department form" (click)="closeFormModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <app-department-form
+        [department]="selectedDepartment()"
+        (cancelled)="closeFormModal()"
+        (submitted)="onDepartmentSubmitted()"
+      />
+    </div>
+  </div>
+}

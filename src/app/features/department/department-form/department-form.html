@@ -1,0 +1,65 @@
+<section class="department-form-page" aria-labelledby="department-form-title">
+  <header class="form-header">
+    <div>
+      <h1 id="department-form-title">{{ department ? 'Edit Department' : 'Create Department' }}</h1>
+      <p>{{ department ? 'Update the department details below.' : 'Enter the details for the new department.' }}</p>
+    </div>
+  </header>
+
+  @if (formError()) {
+    <div class="form-error" role="alert">{{ formError() }}</div>
+  }
+
+  <form class="department-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <div class="form-grid">
+      <label class="form-field">
+        <span>Code <span class="required-mark" aria-hidden="true">*</span></span>
+        <input type="text" formControlName="codigo" autocomplete="off" required />
+        @if (form.controls.codigo.touched && form.controls.codigo.hasError('required')) {
+          <span class="field-error">Code is required.</span>
+        }
+      </label>
+
+      <label class="form-field">
+        <span>Name <span class="required-mark" aria-hidden="true">*</span></span>
+        <input type="text" formControlName="nombre" autocomplete="off" required />
+        @if (form.controls.nombre.touched && form.controls.nombre.hasError('required')) {
+          <span class="field-error">Name is required.</span>
+        }
+      </label>
+
+      <label class="form-field">
+        <span>Building <span class="required-mark" aria-hidden="true">*</span></span>
+        <input type="text" formControlName="edificio" autocomplete="off" required />
+        @if (form.controls.edificio.touched && form.controls.edificio.hasError('required')) {
+          <span class="field-error">Building is required.</span>
+        }
+      </label>
+
+      <label class="form-field">
+        <span>Floor <span class="required-mark" aria-hidden="true">*</span></span>
+        <input type="text" formControlName="piso" autocomplete="off" required />
+        @if (form.controls.piso.touched && form.controls.piso.hasError('required')) {
+          <span class="field-error">Floor is required.</span>
+        }
+      </label>
+
+      <label class="form-field form-field-wide">
+        <span>Maximum budget (USD) <span class="required-mark" aria-hidden="true">*</span></span>
+        <input type="number" formControlName="presupuestoMaximo" min="0" step="0.01" required />
+        @if (form.controls.presupuestoMaximo.touched && form.controls.presupuestoMaximo.hasError('required')) {
+          <span class="field-error">Maximum budget is required.</span>
+        } @else if (form.controls.presupuestoMaximo.touched && form.controls.presupuestoMaximo.hasError('min')) {
+          <span class="field-error">Budget cannot be negative.</span>
+        }
+      </label>
+    </div>
+
+    <footer class="form-actions">
+      <button class="button button-secondary" type="button" [disabled]="isSubmitting()" (click)="cancelled.emit()">Cancel</button>
+      <button class="button button-primary" type="submit" [disabled]="isSubmitting()">
+        {{ isSubmitting() ? 'Saving...' : (department ? 'Save Changes' : 'Create Department') }}
+      </button>
+    </footer>
+  </form>
+</section>
