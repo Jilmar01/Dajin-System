@@ -1,0 +1,6 @@
+export enum AssetStatus {
+  AVAILABLE = 'DISPONIBLE',
+  ASSIGNED = 'ASIGNADO',
+  IN_MAINTENANCE = 'EN_MANTENIMIENTO',
+  RETIRED = 'DE_BAJA',
+}

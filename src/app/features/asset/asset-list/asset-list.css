@@ -1,0 +1,254 @@
+:host {
+  display: block;
+}
+
+.assets-table {
+  min-width: 1280px;
+}
+
+.assets-table .asset-name-column {
+  width: 20%;
+}
+
+.assets-table .asset-code-column {
+  width: 12%;
+}
+
+.assets-table .asset-cost-column {
+  width: 10%;
+}
+
+.assets-table .asset-status-column {
+  width: 10%;
+}
+
+.assets-table .asset-category-column {
+  width: 13%;
+}
+
+.assets-table .asset-department-column {
+  width: 15%;
+}
+
+.assets-table .actions-column {
+  width: 15%;
+}
+
+.asset-name {
+  display: block;
+  overflow: hidden;
+  color: var(--color-text);
+  font-weight: 650;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.asset-related-cell {
+  white-space: nowrap;
+}
+
+.money-cell {
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.status-assigned {
+  color: var(--color-primary);
+}
+
+.status-assigned .status-dot {
+  background: var(--color-primary);
+}
+
+.status-available {
+  color: #16804a;
+}
+
+.status-available .status-dot {
+  background: #21a366;
+}
+
+.status-maintenance {
+  color: #b7791f;
+}
+
+.status-maintenance .status-dot {
+  background: #d69e2e;
+}
+
+.status-retired {
+  color: #b54747;
+}
+
+.status-retired .status-dot {
+  background: #d94848;
+}
+
+.assets-table .action-cell {
+  position: relative;
+  overflow: visible;
+}
+
+.assets-table tbody tr:has(.status-menu) {
+  position: relative;
+  z-index: 2;
+}
+
+.row-actions {
+  justify-content: flex-end;
+}
+
+.status-actions {
+  position: relative;
+}
+
+.status-menu-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 34px;
+  padding: 6px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 7px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.status-menu-chevron {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
+  transition: transform .15s ease;
+}
+
+.status-menu-chevron-open {
+  transform: rotate(180deg);
+}
+
+.status-menu-trigger:hover,
+.status-menu-trigger:focus-visible {
+  border-color: var(--color-primary);
+}
+
+.status-menu-trigger:disabled,
+.status-menu-option:disabled {
+  cursor: wait;
+  opacity: .6;
+}
+
+.status-menu-trigger:focus-visible,
+.status-menu-option:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.status-menu {
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + 5px);
+  right: 0;
+  display: grid;
+  min-width: 160px;
+  padding: 5px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+  box-shadow: 0 8px 24px rgb(23 43 77 / 14%);
+}
+
+.status-menu-above {
+  top: auto;
+  bottom: calc(100% + 5px);
+}
+
+.status-menu-option {
+  padding: 8px 9px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  font-size: 12px;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.status-menu-option:hover {
+  background: var(--color-primary-light);
+}
+
+.status-menu-option:disabled:hover {
+  background: transparent;
+}
+
+.asset-modal-backdrop {
+  position: fixed;
+  z-index: 20;
+  inset: 0;
+  display: grid;
+  overflow-y: auto;
+  padding: 24px;
+  place-items: center;
+  background: rgb(23 43 77 / 45%);
+}
+
+.asset-modal-panel {
+  position: relative;
+  width: min(100%, 760px);
+  max-height: calc(100dvh - 48px);
+  overflow-y: auto;
+  padding: clamp(18px, 3vw, 28px);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-surface);
+  box-shadow: 0 24px 64px rgb(23 43 77 / 22%);
+}
+
+.asset-modal-close {
+  position: absolute;
+  z-index: 1;
+  top: 18px;
+  right: 18px;
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font: inherit;
+  font-size: 23px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.asset-modal-close:hover { background: var(--color-primary-light); color: var(--color-text); }
+.asset-modal-close:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+@media (max-width: 600px) {
+  .asset-modal-backdrop { padding: 12px; place-items: start center; }
+  .asset-modal-panel { max-height: calc(100dvh - 24px); padding: 18px; }
+  .asset-modal-close { top: 12px; right: 12px; }
+}

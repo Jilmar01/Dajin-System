@@ -42,6 +42,13 @@ export const routes: Routes = [
           .then(r => r.DEPARTMENT_ROUTE)
       },
       {
+        path: 'assets',
+        canActivate: [roleGuard],
+        data: { roles: [Rol.ADMIN, Rol.USER] },
+        loadChildren: () => import('./features/asset/asset.routes')
+          .then(r => r.ASSET_ROUTEa)
+      },
+      {
         path: '',
         redirectTo: '',
         pathMatch: 'full'

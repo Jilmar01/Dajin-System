@@ -1,0 +1,90 @@
+<section class="asset-form-page" aria-labelledby="asset-form-title">
+  <header class="form-header">
+    <div>
+      <h1 id="asset-form-title">Create Asset</h1>
+      <p>Enter the asset details and assign its category and department.</p>
+    </div>
+  </header>
+
+  @if (formError()) {
+    <div class="form-error" role="alert">{{ formError() }}</div>
+  }
+
+  @if (isLoadingOptions()) {
+    <p class="options-message" role="status">Loading categories and departments...</p>
+  } @else {
+    <form class="asset-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div class="form-grid">
+        <label class="form-field">
+          <span>Inventory code <span class="required-mark" aria-hidden="true">*</span></span>
+          <input type="text" formControlName="codigoInventario" autocomplete="off" required />
+          @if (form.controls.codigoInventario.touched && form.controls.codigoInventario.hasError('required')) { <span class="field-error">Inventory code is required.</span> }
+        </label>
+        <label class="form-field">
+          <span>Name <span class="required-mark" aria-hidden="true">*</span></span>
+          <input type="text" formControlName="nombre" autocomplete="off" required />
+          @if (form.controls.nombre.touched && form.controls.nombre.hasError('required')) { <span class="field-error">Name is required.</span> }
+        </label>
+        <label class="form-field">
+          <span>Brand <span class="required-mark" aria-hidden="true">*</span></span>
+          <input type="text" formControlName="marca" autocomplete="off" required />
+          @if (form.controls.marca.touched && form.controls.marca.hasError('required')) { <span class="field-error">Brand is required.</span> }
+        </label>
+        <label class="form-field">
+          <span>Model <span class="required-mark" aria-hidden="true">*</span></span>
+          <input type="text" formControlName="modelo" autocomplete="off" required />
+          @if (form.controls.modelo.touched && form.controls.modelo.hasError('required')) { <span class="field-error">Model is required.</span> }
+        </label>
+        <label class="form-field">
+          <span>Serial number <span class="required-mark" aria-hidden="true">*</span></span>
+          <input type="text" formControlName="numeroSerie" autocomplete="off" required />
+          @if (form.controls.numeroSerie.touched && form.controls.numeroSerie.hasError('required')) { <span class="field-error">Serial number is required.</span> }
+        </label>
+        <label class="form-field">
+          <span>Acquisition cost <span class="required-mark" aria-hidden="true">*</span></span>
+          <input type="number" formControlName="costoAdquisicion" min="0" step="0.01" required />
+          @if (form.controls.costoAdquisicion.touched && form.controls.costoAdquisicion.hasError('required')) { <span class="field-error">Acquisition cost is required.</span> }
+          @else if (form.controls.costoAdquisicion.touched && form.controls.costoAdquisicion.hasError('min')) { <span class="field-error">Cost cannot be negative.</span> }
+        </label>
+        <label class="form-field">
+          <span>Currency <span class="required-mark" aria-hidden="true">*</span></span>
+          <input type="text" formControlName="moneda" maxlength="3" autocomplete="off" required />
+        </label>
+        <label class="form-field">
+          <span>Acquisition date <span class="required-mark" aria-hidden="true">*</span></span>
+          <input type="date" formControlName="fechaAdquisicion" required />
+          @if (form.controls.fechaAdquisicion.touched && form.controls.fechaAdquisicion.hasError('required')) { <span class="field-error">Acquisition date is required.</span> }
+        </label>
+        <label class="form-field">
+          <span>Warranty end date</span>
+          <input type="date" formControlName="finGarantia" />
+        </label>
+        <label class="form-field">
+          <span>Category <span class="required-mark" aria-hidden="true">*</span></span>
+          <select formControlName="categoriaId" required>
+            <option [ngValue]="null" disabled>Select a category</option>
+            @for (category of categories(); track category.id) { <option [ngValue]="category.id">{{ category.nombre }} ({{ category.codigo }})</option> }
+          </select>
+          @if (form.controls.categoriaId.touched && form.controls.categoriaId.hasError('required')) { <span class="field-error">Select a category.</span> }
+          @if (categories().length === 0) { <span class="field-error">No categories are available.</span> }
+        </label>
+        <label class="form-field">
+          <span>Department <span class="required-mark" aria-hidden="true">*</span></span>
+          <select formControlName="departamentoId" required>
+            <option [ngValue]="null" disabled>Select a department</option>
+            @for (department of departments(); track department.id) { <option [ngValue]="department.id">{{ department.nombre }} ({{ department.codigo }})</option> }
+          </select>
+          @if (form.controls.departamentoId.touched && form.controls.departamentoId.hasError('required')) { <span class="field-error">Select a department.</span> }
+          @if (departments().length === 0) { <span class="field-error">No departments are available.</span> }
+        </label>
+      </div>
+
+      <footer class="form-actions">
+        <button class="button button-secondary" type="button" [disabled]="isSubmitting()" (click)="cancelled.emit()">Cancel</button>
+        <button class="button button-primary" type="submit" [disabled]="isSubmitting() || categories().length === 0 || departments().length === 0">
+          {{ isSubmitting() ? 'Creating...' : 'Create Asset' }}
+        </button>
+      </footer>
+    </form>
+  }
+</section>
