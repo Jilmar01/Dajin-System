@@ -1,5 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 
+:root {
+    --color-primary: #6347F9;
+    --color-primary-hover: #5238E5;
+    --color-primary-light: #F0EDFF;
+    --color-background: #F7F8FC;
+    --color-surface: #FFFFFF;
+    --color-border: #E5E7EB;
+    --color-text: #172B4D;
+    --color-text-secondary: #64748B;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -8,7 +19,7 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-    background: #f8fafc;
+    background: var(--color-background);
     min-height: 100vh;
     line-height: 1.6;
 }
@@ -16,4 +27,321 @@ body {
 app-root {
     display: block;
     min-height: 100vh;
+}
+
+/* Shared layout and table styles for all management lists. */
+.management-list {
+    display: block;
+    padding: 24px clamp(14px, 3.5vw, 40px);
+    color: var(--color-text);
+}
+
+.management-list .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.management-list h1 {
+    margin: 0;
+    font-size: clamp(26px, 3vw, 34px);
+    letter-spacing: -.04em;
+}
+
+.management-list .page-description {
+    margin: 8px 0 0;
+    color: var(--color-text-secondary);
+    font-size: 14px;
+}
+
+.management-list .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.management-list .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 40px;
+    padding: 0 14px;
+    border: 1px solid transparent;
+    border-radius: 9px;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 650;
+    cursor: pointer;
+    transition: background-color .15s ease, border-color .15s ease, transform .15s ease;
+}
+
+.management-list .button svg {
+    width: 16px;
+    height: 16px;
+    flex: 0 0 16px;
+}
+
+.management-list .button:hover {
+    transform: translateY(-1px);
+}
+
+.management-list .button-primary {
+    background: var(--color-primary);
+    color: #fff;
+    box-shadow: 0 3px 8px #6347f92b;
+}
+
+.management-list .button-primary:hover {
+    background: var(--color-primary-hover);
+}
+
+.management-list .table-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-height: min(720px, calc(100vh - 180px));
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    background: var(--color-surface);
+    box-shadow: 0 8px 24px #1e293b0a;
+}
+
+.management-list .table-scroll {
+    flex: 0 1 auto;
+    min-height: 0;
+    overflow: auto;
+}
+
+.management-list table {
+    width: 100%;
+    min-width: 0;
+    table-layout: fixed;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.management-list th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    height: 42px;
+    padding: 10px 16px;
+    background: var(--color-background);
+    color: var(--color-text-secondary);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .055em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.management-list td {
+    height: 60px;
+    padding: 10px 16px;
+    overflow: hidden;
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+    font-size: 14px;
+    line-height: 20px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.management-list tbody tr:hover {
+    background: #FAFAFD;
+}
+
+.management-list .avatar {
+    display: grid;
+    width: 34px;
+    height: 34px;
+    flex: 0 0 34px;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.management-list .role-badge {
+    display: inline-block;
+    padding: 5px 9px;
+    border-radius: 6px;
+    background: var(--color-background);
+    color: var(--color-text-secondary);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.management-list .date-cell {
+    color: var(--color-text-secondary);
+}
+
+.management-list .actions-heading,
+.management-list .action-cell {
+    text-align: right;
+}
+
+.management-list .row-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.management-list .icon-button {
+    display: inline-grid;
+    width: 34px;
+    height: 34px;
+    flex: 0 0 34px;
+    place-items: center;
+    border: 1px solid var(--color-border);
+    border-radius: 9px;
+    background: #fff;
+    cursor: pointer;
+    transition: background-color .15s ease, border-color .15s ease, color .15s ease, transform .15s ease;
+}
+
+.management-list .icon-button svg {
+    width: 17px;
+    height: 17px;
+}
+
+.management-list .icon-button:hover {
+    transform: translateY(-1px);
+}
+
+.management-list .icon-button:focus-visible,
+.management-list .button:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.management-list .icon-button-edit {
+    color: var(--color-primary);
+}
+
+.management-list .icon-button-edit:hover {
+    border-color: var(--color-primary-light);
+    background: var(--color-primary-light);
+}
+
+.management-list .icon-button-delete {
+    color: #c24141;
+}
+
+.management-list .icon-button-delete:hover {
+    border-color: #f3d4d4;
+    background: #fff6f6;
+}
+
+.management-list .pagination {
+    display: flex;
+    min-height: 58px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 10px 20px;
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+    font-size: 13px;
+}
+
+.management-list .pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.management-list .pagination-button {
+    min-height: 34px;
+    padding: 0 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--color-text);
+    font: inherit;
+    cursor: pointer;
+}
+
+.management-list .pagination-button:hover:not(:disabled) {
+    border-color: var(--color-primary-light);
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+.management-list .pagination-button:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.management-list .pagination-button:disabled {
+    color: #98a2b3;
+    cursor: not-allowed;
+    opacity: .65;
+}
+
+.management-list .pagination-page {
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+}
+
+.management-list .state-message {
+    display: grid;
+    flex: 0 1 auto;
+    place-items: center;
+    padding: 24px 20px;
+    color: var(--color-text-secondary);
+    font-size: 14px;
+    text-align: center;
+}
+
+.management-list .state-error {
+    display: block;
+    flex: initial;
+    margin: 0 0 16px;
+    padding: 11px 14px;
+    border: 1px solid #f2caca;
+    border-radius: 9px;
+    background: #fff6f6;
+    color: #b42318;
+    text-align: left;
+}
+
+@media (max-width: 760px) {
+    .management-list {
+        padding: 18px 14px;
+    }
+
+    .management-list .page-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .management-list .toolbar {
+        justify-content: flex-start;
+    }
+
+    .management-list .table-card {
+        max-height: calc(100dvh - 120px);
+    }
+
+    .management-list .pagination {
+        align-items: flex-start;
+        flex-direction: column;
+        justify-content: center;
+        gap: 8px;
+        padding: 10px 14px;
+    }
+
+    .management-list .pagination-controls {
+        width: 100%;
+        justify-content: space-between;
+    }
 }
